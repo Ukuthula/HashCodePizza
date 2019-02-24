@@ -1,5 +1,5 @@
 # HashCodePizza
-Trying to solve the example exercise given by Google.
+Trying to solve the example exercise given by Google again but 1 year later...
 
 Start program:
 
