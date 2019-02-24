@@ -20,7 +20,21 @@ slices = []
 print(exR, exC, exL, exH)
 
 #%%
-example
+print(example)
 
 #%%
+def isSliceOK( coords ):
+    #get number of ingredients
+    cells = (coords[1][0] - coords[0][0] + 1) * (coords[1][1] - coords[0][1] + 1 )
+    #mushrooms
+    mush = 0
+    for i in range( coords[0][0] , coords[1][0] + 1):
+        for j in range( coords[0][1] , coords[1][1] + 1):
+            mush += example[j][i]   
+    return cells <= exH and mush >= exL and cells-mush >= exL 
+
+    
+
+
+
 
