@@ -13,7 +13,6 @@ exR = int(example_param[0])
 exC = int(example_param[1])
 exL = int(example_param[2])
 exH = int(example_param[3])
-slices = []
 
 
 #%%
@@ -31,12 +30,9 @@ def generateSlices(R,C,L,H):
 
     sqrt = int(np.sqrt(H))
 
-    print(sqrt)
-
     for row in range(0,R,sqrt):
         for col in range(0,C,sqrt):
             slices.append([(row,col),(min(row+sqrt-1,R-1), min(col+sqrt-1, C-1))])
-            print(row,col)
 
     return slices
 
