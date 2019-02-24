@@ -10,6 +10,8 @@ exR = int(example_param[0])
 exC = int(example_param[1])
 exL = int(example_param[2])
 exH = int(example_param[3])
+slices = []
+
 
 #%%
 print(exR, exC, exL, exH)
@@ -18,3 +20,4 @@ print(exR, exC, exL, exH)
 example[0][0]
 
 #%%
+
