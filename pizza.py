@@ -40,12 +40,36 @@ def generateSlices(R,C,L,H):
 generateSlices(exR, exC, exL, exH)
 
 #%%
-def isSliceOK( coords ):
+def isSliceOK( coords , data ):
     #get number of ingredients
     cells = (coords[1][0] - coords[0][0] + 1) * (coords[1][1] - coords[0][1] + 1 )
     #mushrooms
     mush = 0
     for i in range( coords[0][0] , coords[1][0] + 1):
         for j in range( coords[0][1] , coords[1][1] + 1):
-            mush += example[j][i]   
+            mush += data[i][j]   
     return cells <= exH and mush >= exL and cells-mush >= exL 
+
+
+#%%
+def writeToFile(file_name, slices):
+    slices = np.array(slices).reshape(len(slices),4)
+    dataframe = pd.DataFrame(slices)
+    dataframe.to_csv(file_name, header=[str(len(slices)),"","",""],sep=' ', index=False)
+    
+
+#%%
+pd.DataFrame(np.array(ok).reshape(len(ok),4))
+
+#%%
+slices = generateSlices(exR, exC, exL, exH)
+ok = []
+for slize in slices:
+    if isSliceOK(slize, example):
+        ok.append(slize)
+
+#%%
+ok
+
+#%%
+writeToFile('out/example.in', ok)
