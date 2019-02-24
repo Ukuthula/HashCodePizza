@@ -4,8 +4,8 @@ import pandas as pd
 
 #%%
 def run( path_in, path_out ):
-    data_param = pd.read_csv(path, sep=' ', header=None, nrows=1)
-    data = pd.read_csv(path,sep=' ', header=None, skiprows=1)
+    data_param = pd.read_csv(path_in, sep=' ', header=None, nrows=1)
+    data = pd.read_csv(path_in,sep=' ', header=None, skiprows=1)
     data = data[0].apply(lambda x: pd.Series(list(x)))
     data[data == 'T'] = 0
     data[data == 'M'] = 1
@@ -14,6 +14,15 @@ def run( path_in, path_out ):
     dataC = int(data_param[1])
     dataL = int(data_param[2])
     dataH = int(data_param[3])
+
+    slices = generateSlices(dataR, dataC, dataL, dataH)
+    ok = []
+    for slize in slices:
+        if isSliceOK(slize, data, dataH, dataL):
+            ok.append(slize)
+
+    writeToFile(path_out, ok)
+
 
 
 #%%
@@ -32,7 +41,7 @@ def generateSlices(R,C,L,H):
     return slices
 
 #%%
-def isSliceOK( coords , data ):
+def isSliceOK( coords , data, H, L ):
     #get number of ingredients
     cells = (coords[1][0] - coords[0][0] + 1) * (coords[1][1] - coords[0][1] + 1 )
     #mushrooms
@@ -40,7 +49,7 @@ def isSliceOK( coords , data ):
     for i in range( coords[0][0] , coords[1][0] + 1):
         for j in range( coords[0][1] , coords[1][1] + 1):
             mush += data[i][j]   
-    return cells <= exH and mush >= exL and cells-mush >= exL 
+    return cells <= H and mush >= L and cells-mush >= L 
 
 
 #%%
@@ -61,7 +70,13 @@ for slize in slices:
         ok.append(slize)
 
 #%%
-ok
+run('data/example.in', 'out/example.in')
 
 #%%
-writeToFile('out/example.in', ok)
+run('data/small.in', 'out/small.in')
+
+#%%
+run('data/medium.in', 'out/medium.in')
+
+#%%
+run('data/big.in', 'out/big.in')
